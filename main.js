@@ -1,6 +1,6 @@
-var Word = require('./word.js');
-var wordBank = require('./word-bank.js');
+var Game = require('./game.js');
 var inquirer = require("inquirer");
+const chalk = require('chalk');
 
 
 var currentGame;
@@ -12,84 +12,36 @@ function Player() {
     this.numOfGames = 0;
 }
 
-function Game(newWord) {
-    this.guessesRemaining = 10;
-    this.currentWord = newWord;
-    this.pastGuesses = [];
-}
+var createGame = function () {
+    // Create a new game using the current word
+    currentGame = new Game();
 
-Game.prototype.promptUser = function (newGame) {
+    // Ask the user to guess letters for the current word
+    promptPlayerGuess();
+};
 
+var createPlayer = function () {
+    currentPlayer = new Player();
+    createGame();
+};
+
+var promptPlayerGuess = function () {
     inquirer.prompt([
         {
             name: "guess",
             message: "Guess a letter: "
         }
     ]).then(function (answers) {
-
-        var playerGuess = answers.guess;
-
-        console.log("You guessed: " + playerGuess);
-
-        // For Testing, display the current word
-        // console.log(currentGame.currentWord.target);
-
-        var isGuessCorrect = currentGame.currentWord.checkLetter(playerGuess);
-
-        if (isGuessCorrect === 0) {
-            console.log("WRONG");
-            currentGame.guessesRemaining--;
-
-        } else {
-            console.log("CORRECT");
-            if (currentGame.currentWord.findWord()) {
-                console.log("You won!");
-                console.log("-------------------");
-            }
+        //console.log("You guessed: " + answers.guess);
+        // Check if player guess is correct and see if they need to keep guessing
+        var continueGuessing = currentGame.isGuessCorrect(answers.guess);
+        // If player can keep guessing, call prompt for player guess again.
+        if (continueGuessing) {
+            promptPlayerGuess()
         }
-
-        console.log("Guesses remaining: " + currentGame.guessesRemaining);
-        console.log("-------------------");
-        if ((currentGame.guessesRemaining > 0) && (currentGame.currentWord.found === false)) {
-            console.log(currentGame.currentWord.wordRender());
-            currentGame.promptUser();
-        }
-        else if (this.guessesRemaining === 0) {
-            console.log("Game over. Correct Word ", currentGame.currentWord.target);
-        } else {
-            console.log("Congrats!");
-            console.log(currentGame.currentWord.wordRender());
-            currentPlayer.wins++;
-            console.log("Your Wins:" + currentPlayer.wins)
-        }
-
     });
-
 };
 
-
-var createGame = function () {
-
-    // Create a new word using words from the word bank file
-    var newWord = new Word(wordBank.words[Math.floor(Math.random() * wordBank.words.length)]);
-
-    //Call the word.getLetters function to fill the current word's letters array.
-    newWord.getLetters();
-
-    // Create a new game using the current word
-    currentGame = new Game(newWord);
-
-    // Ask the user to guess letters for the current word
-    currentGame.promptUser();
-
-};
-
-var createPlayer = function () {
-
-    currentPlayer = new Player();
-    createGame();
-};
-
-console.log("Welcome to Hangman!");
+console.log("\n Welcome to Hangman!");
 console.log("-----------------------------");
 createPlayer();
