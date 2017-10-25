@@ -44,10 +44,12 @@ var promptPlayerGuess = function () {
         else if (currentGame.status === 'win') {
             currentPlayer.wins++;
             currentPlayer.numOfGames++;
+            promptPlayerGame();
         }
         else if (currentGame.status === 'gameOver') {
             currentPlayer.numOfGames++;
             currentPlayer.losses++;
+            promptPlayerGame();
         }
     });
 };
