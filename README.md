@@ -1,4 +1,4 @@
-# Constructor Hhangman Game
+# Constructor Hangman Game
 Constructor Hangman is a node js hangman game using constructor objects.
 
 ## Known Issues
