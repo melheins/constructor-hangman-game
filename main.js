@@ -31,7 +31,13 @@ var promptPlayerGuess = function () {
     inquirer.prompt([
         {
             name: "guess",
-            message: "Guess a letter: "
+            message: "Guess a letter: ",
+            validate: function (value) {
+                var reg = /\D/;
+                return reg.test(value) || "Guess must be one letter!";
+            }
+            //Add validation for one letter/character
+            //Add validation if already guessed
         }
     ]).then(function (answers) {
         //console.log("You guessed: " + answers.guess);
@@ -44,11 +50,19 @@ var promptPlayerGuess = function () {
         else if (currentGame.status === 'win') {
             currentPlayer.wins++;
             currentPlayer.numOfGames++;
+            console.log(" Player Status" +
+                "\n Number of Wins: " + currentPlayer.wins +
+                "\n Number of Losses: " + currentPlayer.losses
+                + "\n");
             promptPlayerGame();
         }
         else if (currentGame.status === 'gameOver') {
             currentPlayer.numOfGames++;
             currentPlayer.losses++;
+            console.log(" Player Status" +
+                "\n Number of Wins: " + currentPlayer.wins +
+                "\n Number of Losses: " + currentPlayer.losses
+                + "\n");
             promptPlayerGame();
         }
     });
@@ -63,7 +77,7 @@ var promptPlayerGame = function () {
         }
     ]).then(function (answers) {
 
-       // console.log(answers);
+        // console.log(answers);
         if (answers.play === true) {
             createGame();
         }

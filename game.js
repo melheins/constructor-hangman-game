@@ -46,11 +46,10 @@ Game.prototype.isGuessCorrect = function (playerGuess) {
         this.status='continue';
     }
     else if (this.guessesRemaining === 0) {
-        console.log("Game over. Correct Word ", this.currentWord.wordValue);
+        console.log("\n GAME OVER. \n The correct word was: \n " +chalk.redBright(this.currentWord.wordValue)+"\n");
         this.status='gameOver';
     } else {
-        console.log("Congrats!");
-        console.log(this.currentWord.wordRender());
+        console.log("\n YOU WON!\n The correct word was: \n "+chalk.greenBright(this.currentWord.wordRender())+"\n");
         this.status='win';
     }
 };
