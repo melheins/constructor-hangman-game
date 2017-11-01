@@ -19,25 +19,25 @@ Constructor Hangman is a node js hangman game using constructor objects.
 ## Examples
 1. Don't Play 
 
-![dont](screenshots\01-dont_play.png)
+![Dont Play](screenshots/01-dont_play.png)
 
 2. Play Game
 
-![play](screenshots\02-play_game.png)
+![Play Game](screenshots/02-play_game.png)
 
 3. Wrong Guess
 
-![wrong](screenshots\03-wrong_guess.png)
+![Wrong Guess](screenshots/03-wrong_guess.png)
 
 4. Correct Guess
 
-![correct](screenshots\04-correct_guess.png)
+![Correct Guess](screenshots/04-correct_guess.png)
 
 5. Win
 
-![win](screenshots\05-win.png)
+![Win](screenshots/05-win.png)
 
-6. Lose
+6. Loss
 
-![loss](screenshots\06-loss.png)
+![Loss](screenshots/06-loss.png)
 
